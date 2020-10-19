@@ -1,4 +1,4 @@
-###COSC 3342 Fall 2020 - Socket Project
+#COSC 3342 Fall 2020 - Socket Project
 
 This is my code for the socket project for Networking class.
 
