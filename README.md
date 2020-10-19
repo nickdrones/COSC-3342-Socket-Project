@@ -5,7 +5,7 @@ This is my code for the socket project for Networking class.
 ======================================
 
 Compile the code:
-> gcc -o socket socket.c
+> gcc -o socket project.c
 
 Run the code:
 > ./socket (portnumber)

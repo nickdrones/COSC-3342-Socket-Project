@@ -52,12 +52,12 @@ int main(int argc, char *argv[])
                 char* commandToGet="deal";
                 if(strcmp(buffer,commandToGet)==0)
                 {
-                        printf("Deal Command Accepted\n");
+                        printf("Deal Command Accepted");
                         exit(0);
                 }
                 else
                 {
-                        printf("Invalid Command\n");
+                        printf("Invalid Command");
                         exit(0);
                 }
 
