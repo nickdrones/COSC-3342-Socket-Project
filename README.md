@@ -14,4 +14,4 @@ Run the code:
 ~~> echo -n "payload" | nc (ip addr of server) (port)~~
 
 Use telnet to connect to ip and port for 2-way communication
-> telnet <ip addr of server> <port>
+> telnet (ip addr of server) (port)
