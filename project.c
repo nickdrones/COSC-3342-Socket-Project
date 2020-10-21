@@ -11,14 +11,17 @@ void sendCards(int socketID){
         int some_array[52],i;
         randperm(some_array,52);
 
-        printf("Before Send run\n");
-
         char sendBuffer[1024];
         sprintf(sendBuffer, "Beginning Deal:\n");
         int sendSuccess = write(socketID , sendBuffer , strlen(sendBuffer));
+                //fflush(sendBuffer);
 
-        printf("After Send run\n");
-        printf("%d\n", sendSuccess);
+                for (i=0;i<52;i++)
+        {
+                                sprintf(sendBuffer, "Card %d:%d\n", i,some_array[i]);
+                                sendSuccess = write(socketID , sendBuffer , strlen(sendBuffer));
+                                //fflush(sendBuffer);
+        }
         //cardMessageToSend = "Card 1: 32";
         //sendSuccess = send(socketID , cardMessageToSend , strlen(cardMessageToSend),0);
 }
@@ -72,8 +75,7 @@ int main(int argc, char *argv[])
                 if(strncmp(buffer,commandToGet,4)==0)
                 {
                         printf("Deal Command Accepted\n");
-                                                sendCards(socketState1);
-                                                printf("After SendCards run\n");
+                                                sendCards(acceptConnection1);
                         exit(0);
                 }
                 else
