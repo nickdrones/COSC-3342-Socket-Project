@@ -5,6 +5,22 @@
 #include <unistd.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+int randperm(int *, int);
+
+void sendCards(int socketID){
+	int some_array[52],i;
+	randperm(some_array,52);
+	
+	printf("Before Send run\n");
+	
+	char *cardMessageToSend = "Beginning Deal:\n";
+	int sendSuccess = send(socketID , cardMessageToSend , strlen(cardMessageToSend),0); 
+	
+	printf("After Send run\n");
+	printf("%d\n", sendSuccess);
+	//cardMessageToSend = "Card 1: 32"; 
+	//sendSuccess = send(socketID , cardMessageToSend , strlen(cardMessageToSend),0); 
+}
 
 int main(int argc, char *argv[])
 {
@@ -48,18 +64,21 @@ int main(int argc, char *argv[])
 
 
         printf("got your message\n");
+
+		
                 printf("%s\n", buffer);
                 char* commandToGet="deal";
-                if(strcmp(buffer,commandToGet)==0)
+                if(strncmp(buffer,commandToGet,4)==0)
                 {
-                        printf("Deal Command Accepted");
+                        printf("Deal Command Accepted\n");
+						sendCards(socketState1);
+						printf("After SendCards run\n");
                         exit(0);
                 }
                 else
                 {
-                        printf("Invalid Command");
+                        printf("Invalid Command\n");
                         exit(0);
                 }
 
 }
-//cmd to send packet: echo -n "testing123" | nc 192.168.137.253 3342
