@@ -8,18 +8,19 @@
 int randperm(int *, int);
 
 void sendCards(int socketID){
-	int some_array[52],i;
-	randperm(some_array,52);
-	
-	printf("Before Send run\n");
-	
-	char *cardMessageToSend = "Beginning Deal:\n";
-	int sendSuccess = send(socketID , cardMessageToSend , strlen(cardMessageToSend),0); 
-	
-	printf("After Send run\n");
-	printf("%d\n", sendSuccess);
-	//cardMessageToSend = "Card 1: 32"; 
-	//sendSuccess = send(socketID , cardMessageToSend , strlen(cardMessageToSend),0); 
+        int some_array[52],i;
+        randperm(some_array,52);
+
+        printf("Before Send run\n");
+
+        char sendBuffer[1024];
+        sprintf(sendBuffer, "Beginning Deal:\n");
+        int sendSuccess = write(socketID , sendBuffer , strlen(sendBuffer));
+
+        printf("After Send run\n");
+        printf("%d\n", sendSuccess);
+        //cardMessageToSend = "Card 1: 32";
+        //sendSuccess = send(socketID , cardMessageToSend , strlen(cardMessageToSend),0);
 }
 
 int main(int argc, char *argv[])
@@ -65,14 +66,14 @@ int main(int argc, char *argv[])
 
         printf("got your message\n");
 
-		
+
                 printf("%s\n", buffer);
                 char* commandToGet="deal";
                 if(strncmp(buffer,commandToGet,4)==0)
                 {
                         printf("Deal Command Accepted\n");
-						sendCards(socketState1);
-						printf("After SendCards run\n");
+                                                sendCards(socketState1);
+                                                printf("After SendCards run\n");
                         exit(0);
                 }
                 else
