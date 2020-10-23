@@ -7,8 +7,19 @@
 #include <netinet/in.h>
 int randperm(int *, int);
 
+void sendMessage(int socketID, char *messageForClient)
+{
+	char sendBuffer[1024];
+    sprintf(sendBuffer, messageForClient);
+    int sendSuccess = write(socketID , sendBuffer , strlen(sendBuffer));
+}
+
 void sendCards(int socketID){
         int some_array[52],i;
+		for (i=0;i<52;i++)
+        {
+                some_array[i]=i;
+        }
         randperm(some_array,52);
 
         char sendBuffer[1024];
@@ -63,19 +74,25 @@ int main(int argc, char *argv[])
         int listenState1=listen(socketState1, 5);
 
         int acceptConnection1=accept(socketState1,(struct sockaddr *)&serverParameters1,(socklen_t*)&addrlen1);
+		
+		sendMessage(acceptConnection1, "==========================================================\n");
+		sendMessage(acceptConnection1, "Welcome to Card Dealer 5000! Please enter commands below\n");
+		sendMessage(acceptConnection1, "==========================================================\n");
+		sendMessage(acceptConnection1, "> ");
 
+		
         int readToBuffer = read(acceptConnection1, buffer, 1024);
 
 
-        printf("got your message\n");
+        printf("Got Message from Client\n");
 
 
-                printf("%s\n", buffer);
+                //printf("%s\n", buffer);
                 char* commandToGet="deal";
                 if(strncmp(buffer,commandToGet,4)==0)
                 {
                         printf("Deal Command Accepted\n");
-                                                sendCards(acceptConnection1);
+                        sendCards(acceptConnection1);
                         exit(0);
                 }
                 else
