@@ -4,17 +4,14 @@ This is my code for the socket project for Networking class.
 
 ======================================
 
-Compile the code:
+Compile the server code:
 > gcc -g -o socket project.c randperm.c
 
-Run the code:
-> ./socket (portnumber)
+Compile the client code:
+> gcc -o client client.c
 
-Use telnet to connect to ip and port for 2-way communication
-> telnet (ip addr of server) (port)
+Run the server code:
+> ./socket (port number)
 
-======================================
-
-Once server is connected, you can play a card game!
-Available Commands:
-- deal (shuffles the deck and deals you all 52 cards in the following format: "Card (num 0-51 ordered):(card number 0-51 randomized)")
+Run client code to connect
+> ./client (ip addr of server) (port number)

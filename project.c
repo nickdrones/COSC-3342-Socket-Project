@@ -66,10 +66,10 @@ int main(int argc, char *argv[])
         int acceptConnection1=accept(socketState1,(struct sockaddr *)&serverParameters1,(socklen_t*)&addrlen1);
 		
 		//Send nice header to client
-		sendMessage(acceptConnection1, "==========================================================\n");
-		sendMessage(acceptConnection1, "Welcome to Card Dealer 5000! Please enter commands below\n");
-		sendMessage(acceptConnection1, "==========================================================\n");
-		sendMessage(acceptConnection1, "> ");
+		//sendMessage(acceptConnection1, "==========================================================\n");
+		//sendMessage(acceptConnection1, "Welcome to Card Dealer 5000! Please enter commands below\n");
+		//sendMessage(acceptConnection1, "==========================================================\n");
+		//sendMessage(acceptConnection1, "> ");
 
 		//Create buffer to read command from client
 		char buffer[1024]={0};
