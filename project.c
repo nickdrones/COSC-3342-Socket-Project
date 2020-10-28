@@ -7,31 +7,35 @@
 #include <netinet/in.h>
 int randperm(int *, int);
 
+struct deck
+{
+	int cards[52];
+};
+
 //function to send a message, makes body of code nice and short
 void sendMessage(int socketID, char *messageForClient)
 {
-	char sendBuffer[1024];
+	char sendBuffer[4096];
     sprintf(sendBuffer, messageForClient);
     int sendSuccess = write(socketID , sendBuffer , strlen(sendBuffer));
 }
 
+//function to send content to server, NOT simple text message
+void sendIntArray(int socketID, int arrayToSend[52])
+{
+    int sendSuccess = write(socketID , arrayToSend , 208);
+}
+
 //function to send cards to client
 void sendCards(int socketID){
-        int some_array[52],i;
+		struct deck deckOfCards;
+        int i;
 		for (i=0;i<52;i++)
         {
-                some_array[i]=i;
+                deckOfCards.cards[i]=i;
         }
-        randperm(some_array,52);
-		
-		sendMessage(socketID, "Beginning Deal:\n");
-		
-         for (i=0;i<52;i++)
-        {
-			char sendBuffer[1024];
-			sprintf(sendBuffer, "Card %d:%d\n", i,some_array[i]);
-			int sentSuccess = write(socketID , sendBuffer , strlen(sendBuffer));
-        }
+        randperm(deckOfCards.cards,52);
+		sendIntArray(socketID, deckOfCards.cards);
 }
 
 int main(int argc, char *argv[])
@@ -43,7 +47,7 @@ int main(int argc, char *argv[])
 		/////////////////////////////////
         struct sockaddr_in serverParameters1;
         int addrlen1=sizeof(serverParameters1);
-
+		
         serverParameters1.sin_family = AF_INET;
         serverParameters1.sin_addr.s_addr = INADDR_ANY;
         serverParameters1.sin_port = htons(firstPort);
@@ -64,12 +68,6 @@ int main(int argc, char *argv[])
 		//Listen for incoming connection and accept connection
         int listenState1=listen(socketState1, 5);
         int acceptConnection1=accept(socketState1,(struct sockaddr *)&serverParameters1,(socklen_t*)&addrlen1);
-		
-		//Send nice header to client
-		//sendMessage(acceptConnection1, "==========================================================\n");
-		//sendMessage(acceptConnection1, "Welcome to Card Dealer 5000! Please enter commands below\n");
-		//sendMessage(acceptConnection1, "==========================================================\n");
-		//sendMessage(acceptConnection1, "> ");
 
 		//Create buffer to read command from client
 		char buffer[1024]={0};

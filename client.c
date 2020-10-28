@@ -49,8 +49,14 @@ int main(int argc, char *argv[])
 	
 	sendMessage(socketState, "deal\n");
 	
-	char buffer[4096]={0};
-    int readToBuffer = recv(socketState, buffer, 4096, 0);
-	printf("%s\n", buffer);
+	//char buffer[4096]={0};
+	int arrayOfInts[52]={0};
+    int readToBuffer = recv(socketState, arrayOfInts, 4096, 0);
+	//printf("%s\n", buffer);
+	int i;
+	for (i=0;i<52;i++)
+    {
+		printf("%d\n",arrayOfInts[i]);
+    }
 	
 }
