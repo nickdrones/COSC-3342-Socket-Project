@@ -80,12 +80,6 @@ int main(int argc, char *argv[])
 		int tempCardSuitNum=tempCardToPrint.card_suit;
 		int tempCardValueNum=tempCardToPrint.card_value;
 		printf("Card %d: %s of %s\n",i+1,valueStrings[tempCardValueNum],suitStrings[tempCardSuitNum]);
-		//char TEMPcardSuit[128]=suitStrings[tempCardSuitNum];
-		//char TEMPcardNum[128]="tempcardnum";
-		//char *TEMPcardSuit[128]=tempCardToPrint.card_suit;
-		//char *TEMPcardNum[128]=tempCardToPrint.card_value;
-		//printf("Card %d:%s of %s\n",i,TEMPcardNum,TEMPcardSuit);
-		//printf("%d\n",arrayOfInts[i]);
     }
 	
 }
