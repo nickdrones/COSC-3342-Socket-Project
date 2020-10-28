@@ -7,6 +7,24 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
+enum suit{spades,hearts,diamonds,clubs};
+enum value{ace,two,three,four,five,six,seven,eight,nine,ten,jack,queen,king};
+
+
+struct card
+{
+	enum suit card_suit;
+	enum value card_value;
+};
+
+struct card parse_card(int the_card)
+{
+	struct card temp_card;
+	temp_card.card_suit=the_card/13;
+	temp_card.card_value=the_card%13;
+	return(temp_card);
+};
+
 void sendMessage(int socketID, char *messageForClient)
 {
 	char sendBuffer[1024];
@@ -54,9 +72,20 @@ int main(int argc, char *argv[])
     int readToBuffer = recv(socketState, arrayOfInts, 4096, 0);
 	//printf("%s\n", buffer);
 	int i;
+	char *suitStrings[]={"Spades", "Hearts","Diamonds", "Clubs"};
+	char *valueStrings[]={"Ace","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Jack","Queen","King"};
 	for (i=0;i<52;i++)
     {
-		printf("%d\n",arrayOfInts[i]);
+		struct card tempCardToPrint=parse_card(arrayOfInts[i]);
+		int tempCardSuitNum=tempCardToPrint.card_suit;
+		int tempCardValueNum=tempCardToPrint.card_value;
+		printf("Card %d: %s of %s\n",i+1,valueStrings[tempCardValueNum],suitStrings[tempCardSuitNum]);
+		//char TEMPcardSuit[128]=suitStrings[tempCardSuitNum];
+		//char TEMPcardNum[128]="tempcardnum";
+		//char *TEMPcardSuit[128]=tempCardToPrint.card_suit;
+		//char *TEMPcardNum[128]=tempCardToPrint.card_value;
+		//printf("Card %d:%s of %s\n",i,TEMPcardNum,TEMPcardSuit);
+		//printf("%d\n",arrayOfInts[i]);
     }
 	
 }
